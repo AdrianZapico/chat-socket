@@ -76,8 +76,9 @@ button:hover {
 
 .input-message {
   width: 100%;
-  max-width: 300px; /* Limita o tamanho do campo de input */
+  max-width: 300px; 
   padding: 10px;
+  margin: 10px;
   border: 1px solid #ddd;
   border-radius: 4px;
   margin-top: 10px;
