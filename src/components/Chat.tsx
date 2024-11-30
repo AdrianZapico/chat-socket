@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react'; 
 import './chat.css';
 import io from 'socket.io-client';
 
@@ -66,9 +66,7 @@ const Chat = () => {
             {messages.map((msg, index) => (
               <li
                 key={index}
-                className={`chat-message ${
-                  msg.sender === username ? 'self' : 'other'
-                }`}
+                className={`chat-message ${msg.sender === username ? 'self' : 'other'}`}
               >
                 <strong>{msg.sender}: </strong>
                 {msg.content}
