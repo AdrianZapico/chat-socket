@@ -27,6 +27,15 @@ const Chat = () => {
     };
   }, []);
 
+  // Função para gerar cor única a partir do nome do usuário
+  const generateColorFromUsername = (username: string) => {
+    let hash = 0;
+    for (let i = 0; i < username.length; i++) {
+      hash = username.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    return `#${((hash >> 24) & 0xFF).toString(16)}${((hash >> 16) & 0xFF).toString(16)}${((hash >> 8) & 0xFF).toString(16)}`;
+  };
+
   const handleSendMessage = () => {
     if (message.trim() !== '') {
       const msg = { content: message, sender: username || 'Anonymous' };
@@ -63,15 +72,19 @@ const Chat = () => {
       ) : (
         <>
           <ul className="chat-messages">
-            {messages.map((msg, index) => (
-              <li
-                key={index}
-                className={`chat-message ${msg.sender === username ? 'self' : 'other'}`}
-              >
-                <strong>{msg.sender}: </strong>
-                {msg.content}
-              </li>
-            ))}
+            {messages.map((msg, index) => {
+              const userColor = generateColorFromUsername(msg.sender); // Obtendo a cor do usuário
+              return (
+                <li
+                  key={index}
+                  className={`chat-message ${msg.sender === username ? 'self' : 'other'}`}
+                  style={{ backgroundColor: msg.sender === username ? userColor : '#333' }}
+                >
+                  <strong>{msg.sender}: </strong>
+                  {msg.content}
+                </li>
+              );
+            })}
           </ul>
           <input
             type="text"
@@ -82,6 +95,7 @@ const Chat = () => {
                 handleSendMessage();
               }
             }}
+            className="input-message"
           />
           <button onClick={handleSendMessage}>Send</button>
         </>
