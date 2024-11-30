@@ -20,7 +20,7 @@
   height: 300px;
   width: 100%;
   scrollbar-width: thin; /* Para navegadores Firefox */
-  scrollbar-color: #25d366 #1a202c; /* Cor da barra de rolagem (WhatsApp verde) */
+  scrollbar-color: #25d366 transparent; /* Cor verde e fundo transparente */
   scroll-behavior: smooth; /* Suaviza a rolagem */
 }
 
@@ -31,11 +31,11 @@
 .chat-messages::-webkit-scrollbar-thumb {
   background-color: #25d366; /* Cor verde (como o WhatsApp) */
   border-radius: 10px;
-  border: 2px solid #1a202c; /* Borda mais clara, como no WhatsApp */
+  border: 2px solid transparent; /* Borda transparente */
 }
 
 .chat-messages::-webkit-scrollbar-track {
-  background-color: #1a202c; /* Cor de fundo da barra de rolagem */
+  background-color: transparent; /* Fundo transparente */
 }
 
 .chat-message {
