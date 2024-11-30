@@ -90,3 +90,35 @@ input[type="text"]:focus, .input-message:focus {
   border-color: #4CAF50;
   outline: none;
 }
+
+/* Customizando a barra de rolagem */
+.chat-messages {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 20px;
+  overflow-y: auto;
+  height: 300px;
+  width: 100%;
+  scrollbar-width: thin; /* Para navegadores Firefox */
+  scrollbar-color: #4CAF50 #333; /* Cor da barra e do fundo da barra para Firefox */
+}
+
+/* Barra de rolagem personalizada para o Chrome, Edge e Safari */
+.chat-messages::-webkit-scrollbar {
+  width: 8px; /* Largura da barra de rolagem */
+}
+
+.chat-messages::-webkit-scrollbar-thumb {
+  background-color: #4CAF50; /* Cor da "cabeça" da barra de rolagem */
+  border-radius: 10px;
+}
+
+.chat-messages::-webkit-scrollbar-track {
+  background-color: #333; /* Cor de fundo da barra de rolagem */
+  border-radius: 10px;
+}
+
+/* Suavizar a rolagem */
+html {
+  scroll-behavior: smooth;
+}
