@@ -7,7 +7,7 @@ interface Message {
   sender: string;
 }
 
-const socket = io('http://localhost:3000'); // URL do servidor
+const socket = io('https://serve-chat-socketio.onrender.com'); // URL do servidor
 
 const Chat = () => {
   const [messages, setMessages] = useState<Message[]>([]);
