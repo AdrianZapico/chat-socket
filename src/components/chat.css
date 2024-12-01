@@ -1,5 +1,7 @@
 .chat-container {
   max-width: 800px;
+  width: 400px;
+  height: 400px;
   margin: 0 auto;
   padding: 20px;
   background-color: #1a202c;
@@ -19,23 +21,23 @@
   overflow-y: auto;
   height: 300px;
   width: 100%;
-  scrollbar-width: thin; /* Para navegadores Firefox */
-  scrollbar-color: #25d366 transparent; /* Cor verde e fundo transparente */
-  scroll-behavior: smooth; /* Suaviza a rolagem */
+  scrollbar-width: thin; 
+  scrollbar-color: #35a593 transparent; 
+  scroll-behavior: smooth; 
 }
 
 .chat-messages::-webkit-scrollbar {
-  width: 8px; /* Largura da barra de rolagem */
+  width: 8px; 
 }
 
 .chat-messages::-webkit-scrollbar-thumb {
-  background-color: #25d366; /* Cor verde (como o WhatsApp) */
+  background-color: #35a593; 
   border-radius: 10px;
-  border: 2px solid transparent; /* Borda transparente */
+  border: 2px solid transparent; 
 }
 
 .chat-messages::-webkit-scrollbar-track {
-  background-color: transparent; /* Fundo transparente */
+  background-color: transparent; 
 }
 
 .chat-message {
@@ -48,7 +50,7 @@
 
 .chat-message.self {
   margin-left: auto;
-  background-color: #5e8c5e; /* Cor verde para mensagens do próprio usuário */
+  background-color: #679e8e; /* Cor verde para mensagens do próprio usuário */
 }
 
 .chat-message.other {
@@ -75,9 +77,10 @@ input[type="text"] {
   margin-bottom: 10px;
 }
 
+/* Estilo básico do botão */
 button {
   padding: 10px 20px;
-  background-color: #4CAF50;
+  background-color: #35a593;
   border: none;
   color: white;
   font-size: 16px;
@@ -85,11 +88,30 @@ button {
   border-radius: 4px;
   width: 100%;
   max-width: 300px;
+  transition: background-color 0.3s ease, transform 0.2s ease, color 0.3s ease, box-shadow 0.3s ease;
 }
 
+/* Efeito de Hover */
 button:hover {
-  background-color: #45a049;
+  background-color: #fbca03;
+  color: #1a202c;
+  transform: scale(1.05); /* Aumenta suavemente o botão */
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1); /* Sombra suave ao passar o mouse */
 }
+
+/* Efeito de Click */
+button:active {
+  transform: scale(0.98); /* Diminui suavemente o botão */
+  background-color: #fbc503; /* Cor de fundo mais escura */
+  color: #1a202c;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2); /* Sombra suave ao clicar */
+}
+
+/* Remover contorno ao focar no botão */
+button:focus {
+  outline: none;
+}
+
 
 .input-message {
   width: 100%;
@@ -104,6 +126,6 @@ button:hover {
 }
 
 input[type="text"]:focus, .input-message:focus {
-  border-color: #4CAF50;
+  border-color: #35a593;
   outline: none;
 }

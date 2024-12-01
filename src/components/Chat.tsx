@@ -1,6 +1,9 @@
-import { useState, useEffect } from 'react'; 
+import { useState, useEffect, useRef } from 'react';
 import './chat.css';
 import io from 'socket.io-client';
+import myImage from '../assets/images/funny chat card.png';
+import otherImage from '../assets/images/funny chat logo.png';
+import meowSound from '../assets/audio/meow.mp3'; // Importa o som de notificação
 
 interface Message {
   content: string;
@@ -14,10 +17,16 @@ const Chat = () => {
   const [message, setMessage] = useState('');
   const [username, setUsername] = useState('');
   const [isUserSet, setIsUserSet] = useState(false); // Flag para verificar se o usuário foi configurado
+  const audioRef = useRef<HTMLAudioElement>(null); // Referência para o elemento de áudio
 
   useEffect(() => {
     const handleSocketMessage = (msg: Message) => {
       setMessages((prevMessages) => [...prevMessages, msg]);
+
+      // Toca o som de notificação ao receber uma nova mensagem
+      if (audioRef.current) {
+        audioRef.current.play();
+      }
     };
 
     socket.on('chat message', handleSocketMessage);
@@ -56,6 +65,14 @@ const Chat = () => {
     <div className="chat-container">
       {!isUserSet ? (
         <div className="username-setup">
+          <div>
+            <img
+              style={{ width: '250px', height: '250px', borderRadius: '50%' }}
+              src={myImage}
+              alt="My Image"
+            />
+          </div>
+
           <input
             type="text"
             placeholder="Enter your name"
@@ -71,6 +88,18 @@ const Chat = () => {
         </div>
       ) : (
         <>
+          <div>
+            <img
+              style={{
+                width: '50px',
+                height: '50px',
+                borderRadius: '50%',
+                opacity: '0.4',
+              }}
+              src={otherImage}
+              alt="My Image"
+            />
+          </div>
           <ul className="chat-messages">
             {messages.map((msg, index) => {
               const userColor = generateColorFromUsername(msg.sender); // Obtendo a cor do usuário
@@ -80,7 +109,7 @@ const Chat = () => {
                   className={`chat-message ${msg.sender === username ? 'self' : 'other'}`}
                   style={{
                     backgroundColor: msg.sender === username ? userColor : '#333',
-                    borderLeft: `4px solid ${userColor}` // Adicionando uma borda para destacar ainda mais
+                    borderLeft: `4px solid ${userColor}`, // Adicionando uma borda para destacar ainda mais
                   }}
                 >
                   <strong>{msg.sender}: </strong>
@@ -103,6 +132,12 @@ const Chat = () => {
           <button onClick={handleSendMessage}>Send</button>
         </>
       )}
+
+      
+      <audio ref={audioRef}>
+        <source src={meowSound} type="audio/mp3" />
+        Your browser does not support the audio element.
+      </audio>
     </div>
   );
 };
