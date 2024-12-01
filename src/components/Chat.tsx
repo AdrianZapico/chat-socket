@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'; 
+import { useState, useEffect } from 'react';
 import './chat.css';
 import io from 'socket.io-client';
 
@@ -13,7 +13,7 @@ const Chat = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [message, setMessage] = useState('');
   const [username, setUsername] = useState('');
-  const [isUserSet, setIsUserSet] = useState(false); // Flag para verificar se o usuário foi configurado
+  const [isUserSet, setIsUserSet] = useState(false);
 
   useEffect(() => {
     const handleSocketMessage = (msg: Message) => {
@@ -27,7 +27,7 @@ const Chat = () => {
     };
   }, []);
 
-  // Função para gerar cor única a partir do nome do usuário
+  // Gera uma cor única com base no nome do usuário
   const generateColorFromUsername = (username: string) => {
     let hash = 0;
     for (let i = 0; i < username.length; i++) {
@@ -37,15 +37,15 @@ const Chat = () => {
   };
 
   const handleSendMessage = () => {
-    if (message.trim() !== '') {
+    if (message.trim()) {
       const msg = { content: message, sender: username || 'Anonymous' };
-      socket.emit('chat message', msg); // Envia a mensagem junto com o nome do remetente
+      socket.emit('chat message', msg);
       setMessage('');
     }
   };
 
   const handleSetUsername = () => {
-    if (username.trim().length > 0) {
+    if (username.trim()) {
       setIsUserSet(true);
     } else {
       alert('Please enter a valid username.');
@@ -61,11 +61,7 @@ const Chat = () => {
             placeholder="Enter your name"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            onKeyPress={(e) => {
-              if (e.key === 'Enter') {
-                handleSetUsername();
-              }
-            }}
+            onKeyPress={(e) => e.key === 'Enter' && handleSetUsername()}
           />
           <button onClick={handleSetUsername}>Join Chat</button>
         </div>
@@ -73,12 +69,14 @@ const Chat = () => {
         <>
           <ul className="chat-messages">
             {messages.map((msg, index) => {
-              const userColor = generateColorFromUsername(msg.sender); // Obtendo a cor do usuário
+              const userColor = generateColorFromUsername(msg.sender);
               return (
                 <li
                   key={index}
                   className={`chat-message ${msg.sender === username ? 'self' : 'other'}`}
-                  style={{ backgroundColor: msg.sender === username ? userColor : '#333' }}
+                  style={{
+                    backgroundColor: msg.sender === username ? userColor : '#333',
+                  }}
                 >
                   <strong>{msg.sender}: </strong>
                   {msg.content}
@@ -90,11 +88,7 @@ const Chat = () => {
             type="text"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
-            onKeyPress={(e) => {
-              if (e.key === 'Enter') {
-                handleSendMessage();
-              }
-            }}
+            onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
             className="input-message"
           />
           <button onClick={handleSendMessage}>Send</button>
