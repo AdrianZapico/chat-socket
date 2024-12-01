@@ -1,4 +1,3 @@
-
 .chat-container {
   max-width: 800px;
   margin: 0 auto;
@@ -59,26 +58,22 @@ input[type="text"] {
   margin-bottom: 10px;
 }
 
-/* Efeito de Hover */
+button {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 4px;
+  width: 100%;
+  max-width: 300px;
+}
+
 button:hover {
-  background-color: #fbca03;
-  color: #1a202c;
-  transform: scale(1.05); /* Aumenta suavemente o botão */
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1); /* Sombra suave ao passar o mouse */
+  background-color: #45a049;
 }
 
-/* Efeito de Click */
-button:active {
-  transform: scale(0.98); /* Diminui suavemente o botão */
-  background-color: #fbc503; /* Cor de fundo mais escura */
-  color: #1a202c;
-  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2); /* Sombra suave ao clicar */
-}
-
-/* Remover contorno ao focar no botão */
-button:focus {
-  outline: none;
-}
 .input-message {
   width: 100%;
   max-width: 300px; 
@@ -95,36 +90,3 @@ input[type="text"]:focus, .input-message:focus {
   border-color: #4CAF50;
   outline: none;
 }
-
-/* Customizando a barra de rolagem */
-.chat-messages {
-  list-style: none;
-  padding: 0;
-  margin-bottom: 20px;
-  overflow-y: auto;
-  height: 300px;
-  width: 100%;
-  scrollbar-width: thin; /* Para navegadores Firefox */
-  scrollbar-color: #4CAF50 #333; /* Cor da barra e do fundo da barra para Firefox */
-}
-
-/* Barra de rolagem personalizada para o Chrome, Edge e Safari */
-.chat-messages::-webkit-scrollbar {
-  width: 8px; /* Largura da barra de rolagem */
-}
-
-.chat-messages::-webkit-scrollbar-thumb {
-  background-color: #4CAF50; /* Cor da "cabeça" da barra de rolagem */
-  border-radius: 10px;
-}
-
-.chat-messages::-webkit-scrollbar-track {
-  background-color: #333; /* Cor de fundo da barra de rolagem */
-  border-radius: 10px;
-}
-
-/* Suavizar a rolagem */
-html {
-  scroll-behavior: smooth;
-}
-
