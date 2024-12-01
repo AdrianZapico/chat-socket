@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import './chat.css';
 import io from 'socket.io-client';
-import Card from '../assets/images/funny chat card.png';
+import Card from '../assets/images/funnyChatCard.png';
 
 interface Message {
   content: string;
