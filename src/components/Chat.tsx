@@ -1,8 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react'; 
 import './chat.css';
 import io from 'socket.io-client';
-import myImage from '../assets/images/funny chat card.png';
-import otherImage from '../assets/images/funny chat logo.png'
 
 interface Message {
   content: string;
@@ -54,20 +52,10 @@ const Chat = () => {
     }
   };
 
-
-
   return (
     <div className="chat-container">
-      <div>
-        <img style={{ width: '150px', height: '150px', opacity: '0.4' }} src={otherImage} alt="My Image" />
-      </div>
       {!isUserSet ? (
-
         <div className="username-setup">
-          <div>
-            <img style={{ width: '250px', height: '250px', borderRadius: '50% 50% 50% 50%' }} src={myImage} alt="My Image" />
-          </div>
-
           <input
             type="text"
             placeholder="Enter your name"
@@ -90,10 +78,7 @@ const Chat = () => {
                 <li
                   key={index}
                   className={`chat-message ${msg.sender === username ? 'self' : 'other'}`}
-                  style={{
-                    backgroundColor: msg.sender === username ? userColor : '#333',
-                    borderLeft: `4px solid ${userColor}` // Adicionando uma borda para destacar ainda mais
-                  }}
+                  style={{ backgroundColor: msg.sender === username ? userColor : '#333' }}
                 >
                   <strong>{msg.sender}: </strong>
                   {msg.content}
