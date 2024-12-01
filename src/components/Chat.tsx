@@ -13,7 +13,7 @@ const Chat = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [message, setMessage] = useState('');
   const [username, setUsername] = useState('');
-  const [isUserSet, setIsUserSet] = useState(false); // Flag para verificar se o usuário foi configurado
+  const [isUserSet, setIsUserSet] = useState(false);
 
   useEffect(() => {
     const handleSocketMessage = (msg: Message) => {
@@ -27,25 +27,26 @@ const Chat = () => {
     };
   }, []);
 
-  // Função para gerar cor única a partir do nome do usuário
+  // Função para gerar uma cor única com base no nome do usuário
   const generateColorFromUsername = (username: string) => {
     let hash = 0;
     for (let i = 0; i < username.length; i++) {
       hash = username.charCodeAt(i) + ((hash << 5) - hash);
     }
-    return `#${((hash >> 24) & 0xFF).toString(16)}${((hash >> 16) & 0xFF).toString(16)}${((hash >> 8) & 0xFF).toString(16)}`;
+    const color = `hsl(${hash % 360}, 70%, 70%)`; // Cor no formato HSL
+    return color;
   };
 
   const handleSendMessage = () => {
-    if (message.trim() !== '') {
+    if (message.trim()) {
       const msg = { content: message, sender: username || 'Anonymous' };
-      socket.emit('chat message', msg); // Envia a mensagem junto com o nome do remetente
+      socket.emit('chat message', msg);
       setMessage('');
     }
   };
 
   const handleSetUsername = () => {
-    if (username.trim().length > 0) {
+    if (username.trim()) {
       setIsUserSet(true);
     } else {
       alert('Please enter a valid username.');
@@ -62,9 +63,7 @@ const Chat = () => {
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             onKeyPress={(e) => {
-              if (e.key === 'Enter') {
-                handleSetUsername();
-              }
+              if (e.key === 'Enter') handleSetUsername();
             }}
           />
           <button onClick={handleSetUsername}>Join Chat</button>
@@ -73,34 +72,36 @@ const Chat = () => {
         <>
           <ul className="chat-messages">
             {messages.map((msg, index) => {
-              const userColor = generateColorFromUsername(msg.sender); // Obtendo a cor do usuário
+              const userColor = generateColorFromUsername(msg.sender);
               return (
                 <li
                   key={index}
-                  className={`chat-message ${msg.sender === username ? 'self' : 'other'}`}
+                  className={`chat-message ${
+                    msg.sender === username ? 'self' : 'other'
+                  }`}
                   style={{
-                    backgroundColor: msg.sender === username ? userColor : '#333',
-                    borderLeft: `4px solid ${userColor}` // Adicionando uma borda para destacar ainda mais
+                    backgroundColor: msg.sender === username ? userColor : '#2d2d2d',
+                    borderLeft: `4px solid ${userColor}`,
                   }}
                 >
-                  <strong>{msg.sender}: </strong>
-                  {msg.content}
+                  <strong style={{ color: userColor }}>{msg.sender}:</strong>
+                  <span>{msg.content}</span>
                 </li>
               );
             })}
           </ul>
-          <input
-            type="text"
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            onKeyPress={(e) => {
-              if (e.key === 'Enter') {
-                handleSendMessage();
-              }
-            }}
-            className="input-message"
-          />
-          <button onClick={handleSendMessage}>Send</button>
+          <div className="input-container">
+            <input
+              type="text"
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              onKeyPress={(e) => {
+                if (e.key === 'Enter') handleSendMessage();
+              }}
+              className="input-message"
+            />
+            <button onClick={handleSendMessage}>Send</button>
+          </div>
         </>
       )}
     </div>
