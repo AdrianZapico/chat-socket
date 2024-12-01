@@ -7,6 +7,7 @@
   background-color: #121212; /* Fundo escuro */
   color: #fff; /* Cor do texto */
   font-family: 'Arial', sans-serif;
+  overflow: hidden;
 }
 
 /* Área de mensagens */
@@ -19,6 +20,7 @@
   padding-right: 10px;
   background-color: #1d1d1d; /* Cor de fundo mais escura para as mensagens */
   border-top: 2px solid #444;
+  padding-bottom: 10px; /* Espaçamento inferior */
 }
 
 /* Mensagens do chat */
@@ -30,6 +32,7 @@
   max-width: 80%;
   background-color: #333; /* Cor de fundo das mensagens */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Sombra sutil nas mensagens */
+  transition: background-color 0.3s ease;
 }
 
 /* Estilo para mensagens do próprio usuário */
@@ -64,6 +67,7 @@
   border-color: #35a593; /* Cor do verde em foco */
   background-color: #444;
   outline: none;
+  box-shadow: 0 0 10px rgba(53, 165, 147, 0.7); /* Efeito de foco mais suave */
 }
 
 /* Barra de rolagem personalizada */
@@ -105,6 +109,7 @@
   border-color: #fccb04; /* Foco amarelo dourado */
   background-color: #444;
   outline: none;
+  box-shadow: 0 0 10px rgba(252, 203, 4, 0.7); /* Sombra dourada no foco */
 }
 
 .username-setup button {
@@ -116,6 +121,8 @@
   font-size: 16px;
   cursor: pointer;
   transition: all 0.3s ease;
+  width: 150px; /* Botão um pouco mais estreito */
+  margin-left: 10px; /* Espaçamento entre o campo e o botão */
 }
 
 .username-setup button:hover {
