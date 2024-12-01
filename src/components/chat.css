@@ -72,6 +72,7 @@ body {
 
 /* Estilos para mensagens */
 .chat-message.self {
+  
   background-color: #35a593;
 }
 

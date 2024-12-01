@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
 import './chat.css';
 import io from 'socket.io-client';
+import ImageComponent from './ImageComponent';
+
+
 
 interface Message {
   content: string;
@@ -73,8 +76,9 @@ const Chat = () => {
     
       {!isUserSet ? (
         
+        
         <div className="username-setup">
-         
+         <ImageComponent/>
           <input
             type="text"
             placeholder="Enter your name"
