@@ -60,7 +60,7 @@ const Chat = () => {
     <div className="chat-container">
       {!isUserSet ? (
         <div className="username-setup">
-          <img className='image-container' src={Card} alt="Logo da aplicação" />
+          <img className='image-container' src={Card}/>
           <input
             type="text"
             placeholder="Enter your name"
@@ -97,7 +97,8 @@ const Chat = () => {
             className="input-message"
             placeholder='😺...'
           />
-          <button className='send' onClick={handleSendMessage}>Send</button>
+          <button className='send
+          ' onClick={handleSendMessage}>Send</button>
         </>
       )}
     </div>

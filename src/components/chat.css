@@ -187,7 +187,7 @@
 
 /* Container da imagem */
 .image-container {
-  background-image: url('./assets/images/logo.png'); /* Caminho relativo ao arquivo CSS */
+
   background-size: cover;
   background-position: center;
   height: 250px;
