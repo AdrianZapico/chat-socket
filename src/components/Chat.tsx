@@ -8,7 +8,7 @@ interface Message {
 }
 
 // Conexão com o servidor (use a URL de produção quando necessário)
-const socket = io('http://localhost:3000', {
+const socket = io('https://serve-chat-socketio.onrender.com', {
   transports: ['websocket'],
 });
 
