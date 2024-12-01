@@ -1,4 +1,4 @@
-import "./imagecomponent.css";
+
 
 
 
@@ -6,7 +6,7 @@ export default function ImageComponent() {
     return (
 
         <div>
-       <img src="/assets/images/funnyChatCard.png" alt="Funny Chat Card" />
+       <img style={{width: '200px', borderRadius: '150% 150% 150% 150%'}} src="/assets/images/funnyChatCard.png" alt="Funny Chat Card" />
         </div>
 
     )
