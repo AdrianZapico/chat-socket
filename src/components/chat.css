@@ -2,8 +2,11 @@
 .chat-container {
   display: flex;
   flex-direction: column;
-  height: 100vh; /* Preenche toda a altura da tela */
-  justify-content: space-between;
+  height: 100vh;
+  justify-content: flex-end;
+  background-color: #121212; /* Fundo escuro */
+  color: #fff; /* Cor do texto */
+  font-family: 'Arial', sans-serif;
 }
 
 /* Área de mensagens */
@@ -11,52 +14,124 @@
   list-style-type: none;
   padding: 0;
   margin: 0;
-  flex-grow: 1; /* Permite que a lista de mensagens ocupe o espaço restante */
-  overflow-y: auto; /* Adiciona barra de rolagem quando necessário */
-  padding-right: 10px; /* Espaço adicional para a barra de rolagem */
+  flex-grow: 1;
+  overflow-y: auto;
+  padding-right: 10px;
+  background-color: #1d1d1d; /* Cor de fundo mais escura para as mensagens */
+  border-top: 2px solid #444;
 }
 
 /* Mensagens do chat */
 .chat-message {
   margin-bottom: 10px;
-  padding: 10px;
-  border-radius: 5px;
-  word-wrap: break-word; /* Quebra de linha quando necessário */
-  max-width: 80%; /* Limita a largura da mensagem */
+  padding: 12px;
+  border-radius: 8px;
+  word-wrap: break-word;
+  max-width: 80%;
+  background-color: #333; /* Cor de fundo das mensagens */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Sombra sutil nas mensagens */
 }
 
 /* Estilo para mensagens do próprio usuário */
 .chat-message.self {
+  background-color: #35a593; /* Verde do usuário */
   align-self: flex-end;
+  color: #fff;
 }
 
 /* Estilo para mensagens de outros usuários */
 .chat-message.other {
+  background-color: #444;
   align-self: flex-start;
+  color: #fff;
 }
 
 /* Caixa de input de mensagem */
 .input-message {
   width: calc(100% - 20px);
-  padding: 10px;
+  padding: 12px;
   margin-top: 10px;
   border-radius: 5px;
-  border: 1px solid #ccc;
+  border: 1px solid #555;
+  background-color: #333;
+  color: #fff;
+  font-size: 14px;
   box-sizing: border-box;
+  transition: all 0.3s ease;
+}
+
+.input-message:focus {
+  border-color: #35a593; /* Cor do verde em foco */
+  background-color: #444;
+  outline: none;
+}
+
+/* Barra de rolagem personalizada */
+.chat-messages::-webkit-scrollbar {
+  width: 8px;
+}
+
+.chat-messages::-webkit-scrollbar-thumb {
+  background-color: #555;
+  border-radius: 10px;
+}
+
+.chat-messages::-webkit-scrollbar-track {
+  background-color: #333;
 }
 
 /* Setup do nome de usuário */
+.username-setup {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  color: #fff;
+}
+
 .username-setup input {
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #555;
+  background-color: #333;
+  color: #fff;
+  font-size: 16px;
   margin-right: 10px;
+  width: 220px;
+  transition: all 0.3s ease;
+}
+
+.username-setup input:focus {
+  border-color: #fccb04; /* Foco amarelo dourado */
+  background-color: #444;
+  outline: none;
 }
 
 .username-setup button {
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  background-color: #007BFF;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #555;
+  background-color: #fccb04; /* Botão amarelo dourado */
   color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.username-setup button:hover {
+  background-color: #e6b100; /* Amarelo mais escuro no hover */
+  border-color: #cc9900;
+}
+
+.username-setup button:active {
+  transform: scale(0.98);
+}
+
+/* Adicionando animação suave ao botão */
+.username-setup input, .username-setup button {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.username-setup input:focus, .username-setup button:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
