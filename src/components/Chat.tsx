@@ -70,8 +70,11 @@ const Chat = () => {
 
   return (
     <div className="chat-container">
+    
       {!isUserSet ? (
+        
         <div className="username-setup">
+         
           <input
             type="text"
             placeholder="Enter your name"
