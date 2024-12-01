@@ -1,92 +1,62 @@
+/* Chat container */
 .chat-container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #1a202c;
-  border-radius: 8px;
-  font-family: Arial, sans-serif;
-  color: #fff;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
+  height: 100vh; /* Preenche toda a altura da tela */
+  justify-content: space-between;
 }
 
+/* Área de mensagens */
 .chat-messages {
-  list-style: none;
+  list-style-type: none;
   padding: 0;
-  margin-bottom: 20px;
-  overflow-y: auto;
-  height: 300px;
-  width: 100%;
+  margin: 0;
+  flex-grow: 1; /* Permite que a lista de mensagens ocupe o espaço restante */
+  overflow-y: auto; /* Adiciona barra de rolagem quando necessário */
+  padding-right: 10px; /* Espaço adicional para a barra de rolagem */
 }
 
+/* Mensagens do chat */
 .chat-message {
-  padding: 10px;
-  margin: 5px 0;
-  border-radius: 8px;
-  max-width: 80%;
-  word-wrap: break-word;
-}
-
-.chat-message.self {
-  margin-left: auto;
-  background-color: #5e8c5e; /* Cor verde para mensagens do próprio usuário */
-}
-
-.chat-message.other {
-  margin-right: auto;
-  background-color: #3a3d42; /* Cor mais escura para mensagens de outros usuários */
-}
-
-.username-setup {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  width: 100%;
-  text-align: center;
-}
-
-input[type="text"] {
-  padding: 10px;
-  font-size: 16px;
-  width: 100%;
-  max-width: 300px;
-  border-radius: 4px;
-  border: 1px solid #ddd;
   margin-bottom: 10px;
-}
-
-button {
-  padding: 10px 20px;
-  background-color: #4CAF50;
-  border: none;
-  color: white;
-  font-size: 16px;
-  cursor: pointer;
-  border-radius: 4px;
-  width: 100%;
-  max-width: 300px;
-}
-
-button:hover {
-  background-color: #45a049;
-}
-
-.input-message {
-  width: 100%;
-  max-width: 300px; 
   padding: 10px;
-  margin: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  margin-top: 10px;
-  background-color: #2f3336;
-  color: #fff;
+  border-radius: 5px;
+  word-wrap: break-word; /* Quebra de linha quando necessário */
+  max-width: 80%; /* Limita a largura da mensagem */
 }
 
-input[type="text"]:focus, .input-message:focus {
-  border-color: #4CAF50;
-  outline: none;
+/* Estilo para mensagens do próprio usuário */
+.chat-message.self {
+  align-self: flex-end;
+}
+
+/* Estilo para mensagens de outros usuários */
+.chat-message.other {
+  align-self: flex-start;
+}
+
+/* Caixa de input de mensagem */
+.input-message {
+  width: calc(100% - 20px);
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+/* Setup do nome de usuário */
+.username-setup input {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-right: 10px;
+}
+
+.username-setup button {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  background-color: #007BFF;
+  color: white;
 }
