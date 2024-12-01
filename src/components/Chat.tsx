@@ -7,7 +7,7 @@ interface Message {
   sender: string;
 }
 
-const socket = io('https://serve-chat-socketio.onrender.com'); // URL do servidor
+const socket = io('https://serve-chat-socketio.onrender.com'); // Conectar ao servidor
 
 const Chat = () => {
   const [messages, setMessages] = useState<Message[]>([]);
@@ -15,19 +15,20 @@ const Chat = () => {
   const [username, setUsername] = useState('');
   const [isUserSet, setIsUserSet] = useState(false);
 
+  // Efeito para ouvir mensagens do servidor
   useEffect(() => {
     const handleSocketMessage = (msg: Message) => {
-      setMessages((prevMessages) => [...prevMessages, msg]);
+      setMessages((prevMessages) => [...prevMessages, msg]); // Adiciona nova mensagem
     };
 
-    socket.on('chat message', handleSocketMessage);
+    socket.on('chat message', handleSocketMessage); // Escuta evento 'chat message'
 
     return () => {
-      socket.off('chat message', handleSocketMessage);
+      socket.off('chat message', handleSocketMessage); // Limpa o listener ao desmontar
     };
   }, []);
 
-  // Gera uma cor única com base no nome do usuário
+  // Função para gerar cor única com base no nome
   const generateColorFromUsername = (username: string) => {
     let hash = 0;
     for (let i = 0; i < username.length; i++) {
@@ -36,19 +37,21 @@ const Chat = () => {
     return `#${((hash >> 24) & 0xFF).toString(16)}${((hash >> 16) & 0xFF).toString(16)}${((hash >> 8) & 0xFF).toString(16)}`;
   };
 
+  // Envia a mensagem ao servidor
   const handleSendMessage = () => {
     if (message.trim()) {
       const msg = { content: message, sender: username || 'Anonymous' };
-      socket.emit('chat message', msg);
-      setMessage('');
+      socket.emit('chat message', msg); // Envia a mensagem
+      setMessage(''); // Limpa a caixa de mensagem
     }
   };
 
+  // Configura o nome de usuário
   const handleSetUsername = () => {
     if (username.trim()) {
-      setIsUserSet(true);
+      setIsUserSet(true); // Marca que o nome foi configurado
     } else {
-      alert('Please enter a valid username.');
+      alert('Please enter a valid username.'); // Alerta para nome inválido
     }
   };
 
@@ -60,8 +63,8 @@ const Chat = () => {
             type="text"
             placeholder="Enter your name"
             value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            onKeyPress={(e) => e.key === 'Enter' && handleSetUsername()}
+            onChange={(e) => setUsername(e.target.value)} // Atualiza o nome
+            onKeyPress={(e) => e.key === 'Enter' && handleSetUsername()} // Entra ao pressionar 'Enter'
           />
           <button onClick={handleSetUsername}>Join Chat</button>
         </div>
@@ -69,13 +72,13 @@ const Chat = () => {
         <>
           <ul className="chat-messages">
             {messages.map((msg, index) => {
-              const userColor = generateColorFromUsername(msg.sender);
+              const userColor = generateColorFromUsername(msg.sender); // Gera cor baseada no nome
               return (
                 <li
                   key={index}
                   className={`chat-message ${msg.sender === username ? 'self' : 'other'}`}
                   style={{
-                    backgroundColor: msg.sender === username ? userColor : '#333',
+                    backgroundColor: msg.sender === username ? userColor : '#333', // Cor personalizada
                   }}
                 >
                   <strong>{msg.sender}: </strong>
@@ -87,8 +90,8 @@ const Chat = () => {
           <input
             type="text"
             value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
+            onChange={(e) => setMessage(e.target.value)} // Atualiza a mensagem
+            onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()} // Envia a mensagem ao pressionar 'Enter'
             className="input-message"
           />
           <button onClick={handleSendMessage}>Send</button>
