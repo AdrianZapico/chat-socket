@@ -78,7 +78,10 @@ const Chat = () => {
                 <li
                   key={index}
                   className={`chat-message ${msg.sender === username ? 'self' : 'other'}`}
-                  style={{ backgroundColor: msg.sender === username ? userColor : '#333' }}
+                  style={{
+                    backgroundColor: msg.sender === username ? userColor : '#333',
+                    borderLeft: `4px solid ${userColor}` // Adicionando uma borda para destacar ainda mais
+                  }}
                 >
                   <strong>{msg.sender}: </strong>
                   {msg.content}

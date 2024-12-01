@@ -1,7 +1,6 @@
+
 .chat-container {
   max-width: 800px;
-  width: 400px;
-  height: 400px;
   margin: 0 auto;
   padding: 20px;
   background-color: #1a202c;
@@ -21,23 +20,6 @@
   overflow-y: auto;
   height: 300px;
   width: 100%;
-  scrollbar-width: thin; 
-  scrollbar-color: #35a593 transparent; 
-  scroll-behavior: smooth; 
-}
-
-.chat-messages::-webkit-scrollbar {
-  width: 8px; 
-}
-
-.chat-messages::-webkit-scrollbar-thumb {
-  background-color: #35a593; 
-  border-radius: 10px;
-  border: 2px solid transparent; 
-}
-
-.chat-messages::-webkit-scrollbar-track {
-  background-color: transparent; 
 }
 
 .chat-message {
@@ -50,7 +32,7 @@
 
 .chat-message.self {
   margin-left: auto;
-  background-color: #679e8e; /* Cor verde para mensagens do próprio usuário */
+  background-color: #5e8c5e; /* Cor verde para mensagens do próprio usuário */
 }
 
 .chat-message.other {
@@ -115,9 +97,8 @@ button:focus {
 
 .input-message {
   width: 100%;
-  max-width: 300px; 
+  max-width: 300px; /* Limita o tamanho do campo de input */
   padding: 10px;
-  margin: 10px;
   border: 1px solid #ddd;
   border-radius: 4px;
   margin-top: 10px;
@@ -126,6 +107,6 @@ button:focus {
 }
 
 input[type="text"]:focus, .input-message:focus {
-  border-color: #35a593;
+  border-color: #4CAF50;
   outline: none;
 }
