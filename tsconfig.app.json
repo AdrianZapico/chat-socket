@@ -1,27 +1,24 @@
 {
   "compilerOptions": {
-    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
-    "target": "ES2020",
-    "useDefineForClassFields": true,
-    "lib": ["ES2020", "DOM", "DOM.Iterable"],
-    "module": "ESNext",
-    "skipLibCheck": true,
-
-    /* Bundler mode */
-    "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true,
-    "isolatedModules": true,
-    "moduleDetection": "force",
-    "noEmit": true,
-    "jsx": "react-jsx",
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",  // Especifica o local do arquivo de informações de compilação
+    "target": "ES2020",                                                // Definir a versão do ECMAScript para ES2020
+    "useDefineForClassFields": true,                                    // Usar definição de classe para campos de classe
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],                            // Bibliotecas para incluir no projeto
+    "module": "ESNext",                                                  // Módulo ESNext para melhor compatibilidade com importações/exportações
+    "skipLibCheck": true,                                               // Ignorar checagem de tipo em bibliotecas
+    "moduleResolution": "bundler",                                       // Resolução de módulos no modo bundler
+    "allowImportingTsExtensions": true,                                 // Permitir importações com extensões .ts
+    "isolatedModules": true,                                             // Garantir que todos os arquivos sejam módulos isolados
+    "moduleDetection": "force",                                          // Forçar a detecção de módulos
+    "noEmit": true,                                                      // Não gerar saída de compilação
+    "jsx": "react-jsx",                                                 // JSX para React com a nova sintaxe (React 17+)
     
-
     /* Linting */
-    "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "strict": true,                                                      // Habilitar verificações estritas
+    "noUnusedLocals": true,                                              // Detectar variáveis locais não utilizadas
+    "noUnusedParameters": true,                                          // Detectar parâmetros não utilizados
+    "noFallthroughCasesInSwitch": true,                                  // Impedir queda de casos em switch
+    "noUncheckedSideEffectImports": true                                 // Garantir que importações com efeitos colaterais sejam verificadas
   },
-  "include": ["src"]
+  "include": ["src"]  // Incluir todos os arquivos na pasta 'src'
 }

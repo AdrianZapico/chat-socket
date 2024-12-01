@@ -7,7 +7,10 @@ interface Message {
   sender: string;
 }
 
-const socket = io('https://serve-chat-socketio.onrender.com'); // Conectar ao servidor
+// Conexão com o servidor (use a URL de produção quando necessário)
+const socket = io('http://localhost:3000', {
+  transports: ['websocket'],
+});
 
 const Chat = () => {
   const [messages, setMessages] = useState<Message[]>([]);
@@ -21,10 +24,20 @@ const Chat = () => {
       setMessages((prevMessages) => [...prevMessages, msg]); // Adiciona nova mensagem
     };
 
-    socket.on('chat message', handleSocketMessage); // Escuta evento 'chat message'
+    socket.on('chat message', handleSocketMessage); // Escuta o evento 'chat message'
 
+    // Verifica a conexão
+    socket.on('connect', () => {
+      console.log('Conectado ao servidor');
+    });
+
+    socket.on('disconnect', () => {
+      console.log('Desconectado do servidor');
+    });
+
+    // Limpa o listener ao desmontar
     return () => {
-      socket.off('chat message', handleSocketMessage); // Limpa o listener ao desmontar
+      socket.off('chat message', handleSocketMessage);
     };
   }, []);
 
@@ -69,17 +82,15 @@ const Chat = () => {
           <button onClick={handleSetUsername}>Join Chat</button>
         </div>
       ) : (
-        <>
+        <div className="chat-content">
           <ul className="chat-messages">
             {messages.map((msg, index) => {
-              const userColor = generateColorFromUsername(msg.sender); // Gera cor baseada no nome
+              const userColor = generateColorFromUsername(msg.sender); // Gera cor personalizada baseada no nome
               return (
                 <li
                   key={index}
                   className={`chat-message ${msg.sender === username ? 'self' : 'other'}`}
-                  style={{
-                    backgroundColor: userColor, // Cor personalizada baseada no nome do usuário
-                  }}
+                  style={{ backgroundColor: userColor }}
                 >
                   <strong>{msg.sender}: </strong>
                   {msg.content}
@@ -87,15 +98,17 @@ const Chat = () => {
               );
             })}
           </ul>
-          <input
-            type="text"
-            value={message}
-            onChange={(e) => setMessage(e.target.value)} // Atualiza a mensagem
-            onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()} // Envia a mensagem ao pressionar 'Enter'
-            className="input-message"
-          />
-          <button onClick={handleSendMessage}>Send</button>
-        </>
+          <div className="chat-input">
+            <input
+              type="text"
+              value={message}
+              onChange={(e) => setMessage(e.target.value)} // Atualiza a mensagem
+              onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()} // Envia a mensagem ao pressionar 'Enter'
+              className="input-message"
+            />
+            <button onClick={handleSendMessage}>Send</button>
+          </div>
+        </div>
       )}
     </div>
   );

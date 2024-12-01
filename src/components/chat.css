@@ -1,137 +1,85 @@
-/* Chat container */
 .chat-container {
   display: flex;
   flex-direction: column;
-  height: 100vh;
-  justify-content: flex-end;
-  background-color: #121212; /* Fundo escuro */
-  color: #fff; /* Cor do texto */
-  font-family: 'Arial', sans-serif;
-}
-
-/* Área de mensagens */
-.chat-messages {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-  flex-grow: 1;
-  overflow-y: auto;
-  padding-right: 10px;
-  background-color: #1d1d1d; /* Cor de fundo mais escura para as mensagens */
-  border-top: 2px solid #444;
-}
-
-/* Mensagens do chat */
-.chat-message {
-  margin-bottom: 10px;
-  padding: 12px;
-  border-radius: 8px;
-  word-wrap: break-word;
-  max-width: 80%;
-  background-color: #333; /* Cor de fundo das mensagens */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Sombra sutil nas mensagens */
-}
-
-/* Estilo para mensagens do próprio usuário */
-.chat-message.self {
-  background-color: #35a593; /* Verde do usuário */
-  align-self: flex-end;
-  color: #fff;
-}
-
-/* Estilo para mensagens de outros usuários */
-.chat-message.other {
-  background-color: #444;
-  align-self: flex-start;
-  color: #fff;
-}
-
-/* Caixa de input de mensagem */
-.input-message {
-  width: calc(100% - 20px);
-  padding: 12px;
-  margin-top: 10px;
-  border-radius: 5px;
-  border: 1px solid #555;
-  background-color: #333;
-  color: #fff;
-  font-size: 14px;
-  box-sizing: border-box;
-  transition: all 0.3s ease;
-}
-
-.input-message:focus {
-  border-color: #35a593; /* Cor do verde em foco */
-  background-color: #444;
-  outline: none;
-}
-
-/* Barra de rolagem personalizada */
-.chat-messages::-webkit-scrollbar {
-  width: 8px;
-}
-
-.chat-messages::-webkit-scrollbar-thumb {
-  background-color: #555;
-  border-radius: 10px;
-}
-
-.chat-messages::-webkit-scrollbar-track {
-  background-color: #333;
-}
-
-/* Setup do nome de usuário */
-.username-setup {
-  display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 20px;
-  color: #fff;
+  width: 100%;
+  height: 100vh;
+  background-color: #121212;
+  color: white;
+}
+
+.username-setup {
+  text-align: center;
+  padding: 20px;
+  background-color: #333;
+  border-radius: 8px;
+  width: 300px;
 }
 
 .username-setup input {
-  padding: 12px;
-  border-radius: 8px;
-  border: 1px solid #555;
-  background-color: #333;
-  color: #fff;
-  font-size: 16px;
-  margin-right: 10px;
-  width: 220px;
-  transition: all 0.3s ease;
-}
-
-.username-setup input:focus {
-  border-color: #fccb04; /* Foco amarelo dourado */
-  background-color: #444;
-  outline: none;
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
 }
 
 .username-setup button {
-  padding: 12px;
-  border-radius: 8px;
-  border: 1px solid #555;
-  background-color: #fccb04; /* Botão amarelo dourado */
+  padding: 10px;
+  background-color: #35a593;
+  border: none;
   color: white;
-  font-size: 16px;
+  border-radius: 5px;
   cursor: pointer;
-  transition: all 0.3s ease;
 }
 
-.username-setup button:hover {
-  background-color: #e6b100; /* Amarelo mais escuro no hover */
-  border-color: #cc9900;
+.chat-content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
 }
 
-.username-setup button:active {
-  transform: scale(0.98);
+.chat-messages {
+  list-style: none;
+  padding: 20px;
+  margin: 0;
+  overflow-y: auto;
+  flex-grow: 1;
 }
 
-/* Adicionando animação suave ao botão */
-.username-setup input, .username-setup button {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+.chat-message {
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
 }
 
-.username-setup input:focus, .username-setup button:hover {
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+.chat-message.self {
+  background-color: #35a593;
+}
+
+.chat-message.other {
+  background-color: #444;
+}
+
+.chat-input {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: #333;
+}
+
+.input-message {
+  width: 80%;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.chat-input button {
+  padding: 10px;
+  background-color: #35a593;
+  border: none;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
 }

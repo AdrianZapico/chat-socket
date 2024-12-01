@@ -1,4 +1,14 @@
 {
+  "compilerOptions": {
+    "target": "es6",                  // Definir o target como ES6
+    "module": "commonjs",             // Usar o módulo CommonJS
+    "strict": true,                   // Habilitar todas as verificações de tipo estritas
+    "esModuleInterop": true,          // Garantir compatibilidade com módulos ES6
+    "skipLibCheck": true,             // Ignorar verificações de tipo em arquivos de declaração
+    "forceConsistentCasingInFileNames": true, // Garantir que os nomes de arquivos sejam consistentes
+    "outDir": "./dist",               // Definir a pasta de saída dos arquivos compilados
+    "rootDir": "./src"                // Definir a pasta raiz dos arquivos fonte
+  },
   "files": [],
   "references": [
     { "path": "./tsconfig.app.json" },
