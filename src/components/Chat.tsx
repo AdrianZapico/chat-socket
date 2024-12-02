@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import './chat.css';
 import io from 'socket.io-client';
 import ImageComponent from './ImageComponent';
+import OtherImageComponent from './OtherImageComponent'; 
 
 
 
@@ -90,7 +91,9 @@ const Chat = () => {
         </div>
       ) : (
         <div className="chat-content">
+          
           <ul className="chat-messages">
+          <OtherImageComponent/>
             {messages.map((msg, index) => {
               const userColor = generateColorFromUsername(msg.sender); // Gera cor personalizada baseada no nome
               return (
@@ -104,7 +107,9 @@ const Chat = () => {
                 </li>
               );
             })}
+           
           </ul>
+          
           <div className="chat-input">
             <input
               type="text"

@@ -149,3 +149,27 @@ button:hover {
   background-color: #f1e150;
   color: #121212;
 }
+
+.online-users {
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+/* Barra de rolagem estilizada */
+.chat-messages::-webkit-scrollbar {
+  width: 8px;
+}
+
+.chat-messages::-webkit-scrollbar-thumb {
+  background-color: #555;
+  border-radius: 10px;
+}
+
+.chat-messages::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Ao passar o mouse sobre a barra */
+.chat-messages:hover::-webkit-scrollbar-thumb {
+  background-color: #888;
+}
