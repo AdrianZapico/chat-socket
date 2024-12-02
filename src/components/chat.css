@@ -1,4 +1,4 @@
-/* Global settings */
+/* Global Reset */
 *,
 *::before,
 *::after {
@@ -11,9 +11,10 @@ body {
   font-family: Arial, sans-serif;
   background-color: #121212;
   color: white;
+  overflow: hidden; /* Garante que a página não role inadvertidamente */
 }
 
-/* Container principal */
+/* Principal Container */
 .chat-container {
   display: flex;
   flex-direction: column;
@@ -21,6 +22,8 @@ body {
   align-items: center;
   width: 100%;
   height: 100vh;
+  padding: 10px;
+  padding-bottom: 50px;
 }
 
 /* Configuração do nome de usuário */
@@ -29,7 +32,9 @@ body {
   padding: 20px;
   background-color: #333;
   border-radius: 8px;
-  width: 300px;
+  width: 100%;
+  max-width: 300px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
 }
 
 .username-setup input,
@@ -40,122 +45,80 @@ body {
   margin-bottom: 10px;
 }
 
+.username-setup input {
+  border: 1px solid #555;
+  background-color: #222;
+  color: white;
+}
+
 .username-setup button {
   background-color: #35a593;
   border: none;
   color: white;
+  font-weight: bold;
   cursor: pointer;
+  transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
-/* Área de chat */
+.username-setup button:hover {
+  transform: scale(1.1);
+  background-color: #2c8c7f;
+}
+
+/* Área de Chat */
 .chat-content {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
   width: 100%;
   height: 100%;
-  padding: 20px;
+  max-width: 600px;
+  background-color: #222;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  padding: 10px;
 }
 
+/* Lista de Mensagens */
 .chat-messages {
   list-style: none;
-  padding: 20px;
+  width: 100%; /* Preenche toda a largura do container */
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Espaçamento entre as mensagens */
+  padding: 20px 0;
   margin: 0;
   overflow-y: auto;
   flex-grow: 1;
+  scroll-behavior: smooth;
+  align-items: flex-start; /* Alinha as mensagens à esquerda */
 }
 
-.chat-message {
+.chat-messages li {
   padding: 10px;
   border-radius: 5px;
-  margin-bottom: 10px;
+  word-wrap: break-word;
+  white-space: pre-wrap; /* Mantém quebras de linha */
+  max-width: 80%; /* Reduz a largura máxima das mensagens */
+  text-align: left; /* Alinha o texto da mensagem à esquerda */
 }
 
-/* Estilos para mensagens */
+/* Estilo para mensagens do usuário e dos outros */
 .chat-message.self {
-  
   background-color: #35a593;
+  color: white;
+  align-self: flex-start; /* Mensagens do próprio usuário ficam à esquerda */
 }
 
 .chat-message.other {
   background-color: #444;
-}
-
-/* Input de mensagem */
-.chat-input {
-  display: flex;
-  justify-content: space-between;
-  padding: 10px;
-  background-color: #333;
-  border-radius: 10px;
-}
-
-.input-message {
-  width: 100%;
-  padding: 10px;
-  border-radius: 5px;
-}
-
-.chat-input button {
-  padding: 10px;
-  background-color: #35a593;
-  border: none;
   color: white;
-  border-radius: 5px;
-  cursor: pointer;
+  align-self: flex-start; /* Mensagens dos outros usuários também ficam à esquerda */
 }
 
-/* Configuração do nome de usuário */
-.username-setup button {
-  padding: 10px;
-  background-color: #35a593;
-  border: none;
-  color: white;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: transform 0.3s ease, background-color 0.3s ease; /* Suaviza a transição */
-}
-
-/* Animação de hover */
-.username-setup button:hover {
-  transform: scale(1.1); /* Aumenta o tamanho do botão */
-  background-color: #2c8c7f; /* Cor um pouco mais escura */
-}
-
-/* Estilo do botão de envio de mensagem */
-.chat-input button {
-  padding: 10px;
-  background-color: #35a593;
-  border: none;
-  color: white;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: transform 0.5s ease, background-color 0.2s ease;
-}
-
-
-
-/* Animação de hover para o botão de envio */
-.chat-input button:hover {
-  transform: scale(1.1);
-  background-color: #eee236;
-}
-
-.chat-input button:active {
-  transform: scale(0.95); /* Diminui o tamanho do botão ao clicar */
-  background-color: #1f7364; /* Cor mais escura */
-}
-
-button:hover {
-  background-color: #f1e150;
-  color: #121212;
-}
-
-.online-users {
-  font-size: 1.2em;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-/* Barra de rolagem estilizada */
+/* Barra de Rolagem */
 .chat-messages::-webkit-scrollbar {
   width: 8px;
 }
@@ -169,7 +132,74 @@ button:hover {
   background: transparent;
 }
 
-/* Ao passar o mouse sobre a barra */
 .chat-messages:hover::-webkit-scrollbar-thumb {
   background-color: #888;
+}
+
+/* Input de Mensagem */
+.chat-input {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px;
+  background-color: #333;
+  border-radius: 10px;
+}
+
+.input-message {
+  flex-grow: 1;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #555;
+  background-color: #222;
+  color: white;
+  width: 100%;
+  padding: 10px;
+  resize: vertical; 
+}
+
+.chat-input button {
+  padding: 10px;
+  background-color: #35a593;
+  border: none;
+  color: white;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+/* Botão de Envio - Efeitos */
+.chat-input button:hover {
+  transform: scale(1.1);
+  background-color: #2c8c7f;
+}
+
+.chat-input button:active {
+  transform: scale(0.95);
+  background-color: #1f7364;
+}
+
+/* Mensagem de Erro */
+.error-message {
+  color: red;
+  font-size: 0.9em;
+  margin-top: 10px;
+  text-align: center;
+}
+
+/* Efeito responsivo */
+@media (max-width: 600px) {
+  .chat-content {
+    max-width: 100%;
+  }
+
+  .username-setup {
+    max-width: 100%;
+  }
+
+  .chat-messages li {
+    max-width: 90%; /* Mensagens ocupam mais espaço em telas menores */
+  }
 }
