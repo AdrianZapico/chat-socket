@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import './chat.css';
 import io from 'socket.io-client';
 import ImageComponent from './ImageComponent';
-// import OtherImageComponent from './OtherImageComponent';
 
 // Caminhos para os arquivos de áudio
 const sendAudioUrl = '/assets/audio/send.mp3'; // Áudio para envio de mensagem
@@ -28,6 +27,7 @@ const Chat = () => {
   const [username, setUsername] = useState('');
   const [isUserSet, setIsUserSet] = useState(false);
   const [error, setError] = useState('');
+  const [onlineUsers, setOnlineUsers] = useState<string[]>([]); // Adiciona estado para usuários online
 
   /** Função para tocar áudio ao enviar mensagem */
   const playSendSound = () => {
@@ -35,19 +35,25 @@ const Chat = () => {
     sendAudio.play().catch((err) => console.error('Erro ao tocar áudio:', err));
   };
 
-  /** Efeito para escutar mensagens do servidor */
+  /** Efeito para escutar mensagens e usuários online do servidor */
   useEffect(() => {
     const handleSocketMessage = (msg: Message) => {
       setMessages((prevMessages) => [...prevMessages, msg]);
     };
 
+    const handleOnlineUsersUpdate = (users: string[]) => {
+      setOnlineUsers(users); // Atualiza a lista de usuários online
+    };
+
     socket.on('chat message', handleSocketMessage);
+    socket.on('update online users', handleOnlineUsersUpdate);
 
     socket.on('connect', () => console.log('Conectado ao servidor'));
     socket.on('disconnect', () => console.log('Desconectado do servidor'));
 
     return () => {
       socket.off('chat message', handleSocketMessage);
+      socket.off('update online users', handleOnlineUsersUpdate);
     };
   }, []);
 
@@ -79,6 +85,7 @@ const Chat = () => {
   /** Configura o nome de usuário */
   const handleSetUsername = () => {
     if (username.trim()) {
+      socket.emit('set username', username); // Envia o nome de usuário para o servidor
       setIsUserSet(true);
     } else {
       alert('Por favor, insira um nome de usuário válido.');
@@ -115,8 +122,15 @@ const Chat = () => {
       ) : (
         // Conteúdo do chat
         <div className="chat-content">
+          <div className="online-users">
+            <h3>Usuários Online:</h3>
+            <ul>
+              {onlineUsers.map((user, index) => (
+                <li key={index}>{user}</li>
+              ))}
+            </ul>
+          </div>
           <ul className="chat-messages">
-            {/* <OtherImageComponent /> */}
             {messages.map((msg, index) => {
               const userColor = generateColorFromUsername(msg.sender);
               return (
@@ -125,9 +139,9 @@ const Chat = () => {
                   className={`chat-message ${msg.sender === username ? 'self' : 'other'}`}
                   style={{
                     backgroundColor: userColor,
-                    wordWrap: 'break-word', // Garante quebra de palavras longas
-                    whiteSpace: 'pre-wrap', // Preserva quebras de linha e espaços
-                    maxWidth: '90%', // Limita a largura da mensagem
+                    wordWrap: 'break-word',
+                    whiteSpace: 'pre-wrap',
+                    maxWidth: '90%',
                   }}
                 >
                   <strong>{msg.sender}: </strong>

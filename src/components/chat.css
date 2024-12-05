@@ -204,3 +204,27 @@ body {
     max-width: 90%; /* Mensagens ocupam mais espaço em telas menores */
   }
 }
+
+
+.online-users {
+  background-color: #333;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  color: white;
+  max-width: 300px;
+}
+
+.online-users ul {
+  list-style: none;
+  padding: 0;
+}
+
+.online-users li {
+  padding: 5px 0;
+  border-bottom: 1px solid #444;
+}
+
+.online-users li:last-child {
+  border-bottom: none;
+}
