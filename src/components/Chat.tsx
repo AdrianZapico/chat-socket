@@ -29,9 +29,14 @@ const Chat = () => {
   const [error, setError] = useState('');
   const [onlineUsers, setOnlineUsers] = useState<string[]>([]); // Adiciona estado para usuários online
   const [showOnlineUsers, setShowOnlineUsers] = useState(false); // Controle de visibilidade da lista
+  const [lastMessageTime, setLastMessageTime] = useState<Map<string, number>>(new Map());
+
 
   // Referência para a div de "Usuários Online" arrastável
   const onlineUsersRef = useRef<HTMLDivElement | null>(null);
+
+  //Limitador de mensagens 
+  const MESSAGE_COOLDOWN = 2000;
 
   // Variáveis para armazenar a posição inicial de arrasto
   const startX = useRef(0);
@@ -44,6 +49,8 @@ const Chat = () => {
     sendAudio.play().catch((err) => console.error('Erro ao tocar áudio:', err));
   };
 
+
+
   /** Efeito para escutar mensagens e usuários online do servidor */
   useEffect(() => {
     const handleSocketMessage = (msg: Message) => {
@@ -53,6 +60,8 @@ const Chat = () => {
     const handleOnlineUsersUpdate = (users: string[]) => {
       setOnlineUsers(users); // Atualiza a lista de usuários online
     };
+
+
 
     socket.on('chat message', handleSocketMessage);
     socket.on('update online users', handleOnlineUsersUpdate);
@@ -77,17 +86,27 @@ const Chat = () => {
 
   /** Envia mensagem ao servidor */
   const handleSendMessage = () => {
-    if (message.trim().length > MAX_MESSAGE_LENGTH) {
-      setError(`Mensagem muito longa! Limite: ${MAX_MESSAGE_LENGTH} caracteres.`);
+    const currentTime = Date.now(); // Timestamp atual
+
+    // Checa se o usuário já enviou mensagem recentemente
+    const lastTime = lastMessageTime.get(username) || 0;
+
+    if (currentTime - lastTime < MESSAGE_COOLDOWN) {
+      setError('Você está enviando mensagens rápido demais. Aguarde um momento.');
       return;
     }
+
 
     if (message.trim()) {
       const msg = { content: message, sender: username || 'Anonymous' };
       socket.emit('chat message', msg);
+
       setMessage('');
       setError('');
       playSendSound();
+
+      // Atualiza o timestamp do último envio
+      setLastMessageTime(new Map(lastMessageTime.set(username, currentTime)));
     }
   };
 
@@ -170,7 +189,7 @@ const Chat = () => {
       ) : (
         // Conteúdo do chat
         <div className="chat-content">
-        
+
           <ul className="chat-messages">
             {messages.map((msg, index) => {
               const userColor = generateColorFromUsername(msg.sender);
@@ -214,28 +233,36 @@ const Chat = () => {
 
       {/* Usuários Online */}
       {isUserSet && (
-        <div
-          className="online-users"
-          ref={onlineUsersRef}
-          onMouseDown={handleMouseDown} // Inicia o arraste
-        >
-          <h3>
-            Usuários Online: <span className="online-number">{onlineUsers.length}{' '}</span>
-            <button
-              onClick={() => setShowOnlineUsers(!showOnlineUsers)}
-              className="toggle-users-btn"
-            >
-              {showOnlineUsers ? 'Ocultar' : 'Mostrar'}
-            </button>
-          </h3>
-          {showOnlineUsers && (
-            <ul>
-              {onlineUsers.map((user, index) => (
-                <li key={index} className="online-user">
-                  <span className="status-dot"></span> {user}
-                </li>
-              ))}
-            </ul>
+  <div className="online-users" ref={onlineUsersRef} onMouseDown={handleMouseDown}>
+    <header className="online-users-header">
+      <h3>
+        Usuários Online: <span className="online-number">{onlineUsers.length}</span>
+      </h3>
+      <button
+        onClick={() => setShowOnlineUsers(prev => !prev)}
+        className="toggle-users-btn"
+        aria-label={showOnlineUsers ? "Ocultar lista de usuários online" : "Mostrar lista de usuários online"}
+      >
+        {showOnlineUsers ? (
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M13.359 11.238l1.548 1.548-.707.707-1.616-1.616A8.527 8.527 0 0 1 8 13.5c-5 0-8-5.5-8-5.5a13.133 13.133 0 0 1 2.11-2.675L1.646 4.646l.707-.707 12 12-.707.707L13.359 11.238zM11.27 9.149A3.5 3.5 0 0 0 8.5 5.83l1.093 1.093A1.5 1.5 0 0 1 11.27 9.149zm-4.417-4.417l-.847-.847A8.498 8.498 0 0 1 8 2.5c5 0 8 5.5 8 5.5-.318.487-.675.942-1.064 1.364L11.27 9.15a3.5 3.5 0 0 0-2.902-2.902L6.853 4.732z" />
+          </svg>
+        ) : (
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5 8-5.5 8-5.5zM8 4.5c1.933 0 3.5 1.567 3.5 3.5S9.933 11.5 8 11.5 4.5 9.933 4.5 8 6.067 4.5 8 4.5z" />
+            <path d="M8 5.5A2.5 2.5 0 1 1 8 10a2.5 2.5 0 0 1 0-4.5z" />
+          </svg>
+        )}
+      </button>
+    </header>
+    {showOnlineUsers && (
+      <ul className="online-users-list">
+        {onlineUsers.map((user, index) => (
+          <li key={index}   className="online-user">
+            <span className="status-dot"></span> {user}
+          </li>
+        ))}
+      </ul>
           )}
         </div>
       )}

@@ -22,9 +22,7 @@ body {
   align-items: center;
   width: 100%;
   height: 100vh;
-  padding: 10px;
-  padding-top: 10px;
-  padding-bottom: 50px;
+  padding: 10px 10px 50px;
 }
 
 /* Configuração do nome de usuário */
@@ -35,7 +33,7 @@ body {
   border-radius: 8px;
   width: 100%;
   max-width: 300px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
 }
 
 .username-setup input,
@@ -77,7 +75,7 @@ body {
   max-width: 600px;
   background-color: #222;
   border-radius: 10px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
   overflow: hidden;
   padding: 10px;
 }
@@ -85,38 +83,34 @@ body {
 /* Lista de Mensagens */
 .chat-messages {
   list-style: none;
-  width: 100%; /* Preenche toda a largura do container */
   display: flex;
   flex-direction: column;
-  gap: 10px; /* Espaçamento entre as mensagens */
+  gap: 10px;
   padding: 20px 0;
   margin: 0;
   overflow-y: auto;
   flex-grow: 1;
   scroll-behavior: smooth;
-  align-items: flex-start; /* Alinha as mensagens à esquerda */
+  align-items: flex-start;
 }
 
 .chat-messages li {
   padding: 10px;
   border-radius: 5px;
   word-wrap: break-word;
-  white-space: pre-wrap; /* Mantém quebras de linha */
-  max-width: 80%; /* Reduz a largura máxima das mensagens */
-  text-align: left; /* Alinha o texto da mensagem à esquerda */
+  white-space: pre-wrap;
+  max-width: 80%;
+  text-align: left;
 }
 
-/* Estilo para mensagens do usuário e dos outros */
 .chat-message.self {
   background-color: #35a593;
   color: white;
-  align-self: flex-start; /* Mensagens do próprio usuário ficam à esquerda */
 }
 
 .chat-message.other {
   background-color: #444;
   color: white;
-  align-self: flex-start; /* Mensagens dos outros usuários também ficam à esquerda */
 }
 
 /* Barra de Rolagem */
@@ -155,9 +149,7 @@ body {
   border: 1px solid #555;
   background-color: #222;
   color: white;
-  width: 100%;
-  padding: 10px;
-  resize: vertical; 
+  resize: vertical;
 }
 
 .chat-input button {
@@ -171,7 +163,6 @@ body {
   transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
-/* Botão de Envio - Efeitos */
 .chat-input button:hover {
   transform: scale(1.1);
   background-color: #2c8c7f;
@@ -192,19 +183,22 @@ body {
 
 /* Efeito responsivo */
 @media (max-width: 600px) {
-  .chat-content {
-    max-width: 100%;
-  }
-
+  .chat-content,
   .username-setup {
     max-width: 100%;
   }
 
   .chat-messages li {
-    max-width: 90%; /* Mensagens ocupam mais espaço em telas menores */
+    max-width: 90%;
   }
 }
 
+/* Área de Usuários Online */
+.online-users-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
 
 .online-users {
   background-color: #333;
@@ -229,16 +223,31 @@ body {
   border-bottom: none;
 }
 
+.local-user {
+  background-color: #4CAF50; /* Verde mais claro para o usuário local */
+  color: white;
+  font-weight: bold; /* Torna o nome do usuário local em negrito */
+}
+
+.local-user .status-dot {
+  background-color: #fff; /* Muda a cor da bolinha para branco */
+}
+
 .toggle-users-btn {
-  margin-left: 10px;
   background: none;
   color: white;
   border: none;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
 }
 
 .toggle-users-btn:hover {
-  background-color: #35a593;
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
 .online-users ul {
@@ -248,38 +257,41 @@ body {
 }
 
 .online-users {
-  position: absolute; /* Permite que a div se mova livremente */
+  position: absolute;
   top: 20px;
   left: 20px;
   background-color: rgba(0, 0, 0, 0.6);
   color: white;
   padding: 10px;
   border-radius: 10px;
-  cursor: move; /* Alterar o cursor para indicar que a div é arrastável */
-  z-index: 1000; /* Garante que a div fique sobre outros elementos */
+  cursor: move;
+  z-index: 1000;
 }
+
 .status-dot {
   width: 10px;
   height: 10px;
-  background-color: green; /* Cor da bolinha */
+  background-color: green;
   border-radius: 50%;
-  margin-right: 8px; /* Espaçamento entre a bolinha e o nome */
+  margin-right: 8px;
+  
 }
 
 .online-number {
-
- color: green;
- animation: pulse 1.5s infinite ease-in-out; /* Animação mais fluida */
+  color: green;
+  animation: pulse 1.5s infinite ease-in-out;
   font-size: 15px;
-
+  font-weight: bold;
+  margin-right: 5px;
 }
+
 @keyframes pulse {
   0%, 100% {
-    opacity: 1; /* Totalmente visível */
-    transform: scale(1); /* Tamanho original */
+    opacity: 1;
+    transform: scale(1);
   }
   50% {
-    opacity: 0.5; /* Semi-transparente no meio */
-    transform: scale(1.2); /* Um leve aumento no tamanho */
+    opacity: 0.5;
+    transform: scale(1.2);
   }
 }
