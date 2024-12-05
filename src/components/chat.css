@@ -228,3 +228,58 @@ body {
 .online-users li:last-child {
   border-bottom: none;
 }
+
+.toggle-users-btn {
+  margin-left: 10px;
+  background: none;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.toggle-users-btn:hover {
+  background-color: #35a593;
+}
+
+.online-users ul {
+  margin: 10px 0;
+  padding-left: 20px;
+  list-style-type: disc;
+}
+
+.online-users {
+  position: absolute; /* Permite que a div se mova livremente */
+  top: 20px;
+  left: 20px;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: move; /* Alterar o cursor para indicar que a div é arrastável */
+  z-index: 1000; /* Garante que a div fique sobre outros elementos */
+}
+.status-dot {
+  width: 10px;
+  height: 10px;
+  background-color: green; /* Cor da bolinha */
+  border-radius: 50%;
+  margin-right: 8px; /* Espaçamento entre a bolinha e o nome */
+}
+
+.online-number {
+
+ color: green;
+ animation: pulse 1.5s infinite ease-in-out; /* Animação mais fluida */
+  font-size: 15px;
+
+}
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1; /* Totalmente visível */
+    transform: scale(1); /* Tamanho original */
+  }
+  50% {
+    opacity: 0.5; /* Semi-transparente no meio */
+    transform: scale(1.2); /* Um leve aumento no tamanho */
+  }
+}

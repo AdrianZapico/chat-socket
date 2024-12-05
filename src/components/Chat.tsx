@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import './chat.css';
 import io from 'socket.io-client';
 import ImageComponent from './ImageComponent';
@@ -28,6 +28,15 @@ const Chat = () => {
   const [isUserSet, setIsUserSet] = useState(false);
   const [error, setError] = useState('');
   const [onlineUsers, setOnlineUsers] = useState<string[]>([]); // Adiciona estado para usuários online
+  const [showOnlineUsers, setShowOnlineUsers] = useState(false); // Controle de visibilidade da lista
+
+  // Referência para a div de "Usuários Online" arrastável
+  const onlineUsersRef = useRef<HTMLDivElement | null>(null);
+
+  // Variáveis para armazenar a posição inicial de arrasto
+  const startX = useRef(0);
+  const startY = useRef(0);
+  const isDragging = useRef(false);
 
   /** Função para tocar áudio ao enviar mensagem */
   const playSendSound = () => {
@@ -104,6 +113,45 @@ const Chat = () => {
     }
   };
 
+  /** Função de arraste da div */
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if (onlineUsersRef.current) {
+      isDragging.current = true;
+      startX.current = e.clientX;
+      startY.current = e.clientY;
+
+      // Previne o comportamento padrão para não selecionar texto ao arrastar
+      e.preventDefault();
+    }
+  };
+
+  /** Função de movimentação durante o arraste */
+  const handleMouseMove = (e: MouseEvent) => {
+    if (isDragging.current && onlineUsersRef.current) {
+      const dx = e.clientX - startX.current;
+      const dy = e.clientY - startY.current;
+
+      onlineUsersRef.current.style.transform = `translate(${dx}px, ${dy}px)`;
+    }
+  };
+
+  /** Função para parar o arraste */
+  const handleMouseUp = () => {
+    isDragging.current = false;
+  };
+
+  useEffect(() => {
+    // Adiciona os eventos para o arraste
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseup', handleMouseUp);
+
+    return () => {
+      // Remove os eventos quando o componente for desmontado
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
+    };
+  }, []);
+
   return (
     <div className="chat-container">
       {/* Configuração de nome de usuário */}
@@ -122,14 +170,7 @@ const Chat = () => {
       ) : (
         // Conteúdo do chat
         <div className="chat-content">
-          <div className="online-users">
-            <h3>Usuários Online:</h3>
-            <ul>
-              {onlineUsers.map((user, index) => (
-                <li key={index}>{user}</li>
-              ))}
-            </ul>
-          </div>
+        
           <ul className="chat-messages">
             {messages.map((msg, index) => {
               const userColor = generateColorFromUsername(msg.sender);
@@ -168,6 +209,34 @@ const Chat = () => {
             <button onClick={handleSendMessage}>Enviar</button>
           </div>
           {error && <div className="error-message">{error}</div>}
+        </div>
+      )}
+
+      {/* Usuários Online */}
+      {isUserSet && (
+        <div
+          className="online-users"
+          ref={onlineUsersRef}
+          onMouseDown={handleMouseDown} // Inicia o arraste
+        >
+          <h3>
+            Usuários Online: <span className="online-number">{onlineUsers.length}{' '}</span>
+            <button
+              onClick={() => setShowOnlineUsers(!showOnlineUsers)}
+              className="toggle-users-btn"
+            >
+              {showOnlineUsers ? 'Ocultar' : 'Mostrar'}
+            </button>
+          </h3>
+          {showOnlineUsers && (
+            <ul>
+              {onlineUsers.map((user, index) => (
+                <li key={index} className="online-user">
+                  <span className="status-dot"></span> {user}
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
       )}
     </div>
