@@ -80,27 +80,29 @@ body {
   padding: 10px;
 }
 
-/* Lista de Mensagens */
 .chat-messages {
   list-style: none;
   display: flex;
   flex-direction: column;
   gap: 10px;
-  padding: 20px 0;
+  padding: 20px 10px;
   margin: 0;
   overflow-y: auto;
   flex-grow: 1;
   scroll-behavior: smooth;
   align-items: flex-start;
+  width: 100%; /* Garante que a largura do contêiner não ultrapasse o limite */
+  box-sizing: border-box; /* Para que o padding não afete a largura total */
 }
 
 .chat-messages li {
-  padding: 10px;
-  border-radius: 5px;
+  max-width: 100%; /* Impede que a largura das mensagens ultrapasse o contêiner */
   word-wrap: break-word;
-  white-space: pre-wrap;
-  max-width: 80%;
-  text-align: left;
+  white-space: pre-wrap; /* Mantém quebras de linha e espaço */
+  overflow-wrap: break-word; /* Garante quebra de palavras longas */
+  text-align: left; /* Ajusta o alinhamento das mensagens */
+  border-radius:  5px;
+  padding: 5px;
 }
 
 .chat-message.self {

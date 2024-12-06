@@ -1,0 +1,27 @@
+.username-setup {
+    padding: 20px;
+    background-color: #333;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 300px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  }
+  
+  .username-setup input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+  
+  .username-setup button {
+    width: 100%;
+    padding: 10px;
+    background-color: #35a593;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  

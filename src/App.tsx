@@ -1,17 +1,13 @@
-
-import Chat from './components/Chat'
-
+import React from 'react';
+import ChatContainer from './components/ChatContainer/ChatContainer';
 import './App.css'
 
-function App() {
-  
-
+const App: React.FC = () => {
   return (
-    <>
+    <div className="app">
+      <ChatContainer />
+    </div>
+  );
+};
 
-    <Chat/>
-    </>
-  )
-}
-
-export default App
+export default App;

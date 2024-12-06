@@ -1,0 +1,13 @@
+.chat-message {
+  font-size: 1.2rem;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  background-color: #ebc9c9;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  scroll-behavior: auto;
+}
+
+
