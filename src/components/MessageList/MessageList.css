@@ -33,7 +33,7 @@
   word-wrap: break-word; /* Quebra palavras longas */
   word-break: break-word; /* Garante que palavras longas sejam quebradas */
   max-width: 100%; /* Evita que o texto ultrapasse os limites */
-  background-color: #333; /* Fundo da mensagem */
+  background-color: #131114; /* Fundo da mensagem */
   color: white; /* Texto visível */
   padding: 10px;
   border-radius: 5px;

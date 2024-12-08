@@ -12,18 +12,15 @@ interface Message {
 interface Props {
   messages: Message[];
   username: string | null;
-  onDeleteMessage: (timestamp: number) => void; // Função de deletar
-  onEditMessage: (timestamp: number, newContent: string) => void; // Função de editar
+  onDeleteMessage: (timestamp: number) => void;
+  onEditMessage: (timestamp: number, newContent: string) => void;
 }
 
 const MessageList: React.FC<Props> = ({ messages, username, onDeleteMessage, onEditMessage }) => {
   const messageEndRef = useRef<HTMLDivElement>(null);
   const [userColors, setUserColors] = useState<Record<string, string>>({});
   const [menuVisible, setMenuVisible] = useState<{ [timestamp: number]: boolean }>({});
-  const [editModal, setEditModal] = useState<{ visible: boolean; message: Message | null }>({
-    visible: false,
-    message: null,
-  });
+  const [editModal, setEditModal] = useState<{ visible: boolean; message: Message | null }>({ visible: false, message: null });
 
   // Função para gerar cor aleatória para cada usuário
   const getUserColor = (username: string) => {
@@ -46,19 +43,20 @@ const MessageList: React.FC<Props> = ({ messages, username, onDeleteMessage, onE
     }
   }, [username, userColors]);
 
+  // Função para formatar a data/hora
   const formatDate = (timestamp: number) => {
     const date = new Date(timestamp);
     return `${date.getHours()}:${date.getMinutes()}`;
   };
 
-  // Função de rolagem automática
+  // Função para rolagem automática
   useEffect(() => {
     if (messageEndRef.current) {
       messageEndRef.current.scrollIntoView({ behavior: 'smooth' });
     }
   }, [messages]);
 
-  // Função para abrir o menu de edição/exclusão
+  // Abrir e fechar o menu de edição e exclusão
   const toggleMenu = (timestamp: number) => {
     setMenuVisible((prevState) => ({
       ...prevState,
@@ -66,17 +64,14 @@ const MessageList: React.FC<Props> = ({ messages, username, onDeleteMessage, onE
     }));
   };
 
-  // Função para abrir a modal de edição
+  // Função para abrir o modal de edição
   const openEditModal = (message: Message) => {
-    setEditModal({ visible: true, message });
+    if (message.sender === username) { // Apenas permite editar se a mensagem for do usuário logado
+      setEditModal({ visible: true, message });
+    }
   };
 
-  // Função para fechar a modal
-  const closeEditModal = () => {
-    setEditModal({ visible: false, message: null });
-  };
-
-  // Função para salvar a edição
+  // Função para salvar a edição da mensagem
   const handleSaveEdit = () => {
     if (editModal.message) {
       onEditMessage(editModal.message.timestamp, editModal.message.content);
@@ -84,14 +79,16 @@ const MessageList: React.FC<Props> = ({ messages, username, onDeleteMessage, onE
     }
   };
 
+  // Função para fechar o modal de edição
+  const closeEditModal = () => {
+    setEditModal({ visible: false, message: null });
+  };
+
   return (
     <>
       <ul className="chat-messages">
         {messages.map((msg) => (
-          <li
-            key={msg.timestamp}
-            className={`chat-message ${msg.sender === username ? 'self' : 'other'}`}
-          >
+          <li key={msg.timestamp} className={`chat-message ${msg.sender === username ? 'self' : 'other'}`}>
             <div className="message-content">
               <strong style={{ color: userColors[msg.sender] || getUserColor(msg.sender) }}>
                 {msg.sender}:
@@ -108,7 +105,10 @@ const MessageList: React.FC<Props> = ({ messages, username, onDeleteMessage, onE
             {/* Menu de edição/exclusão */}
             {menuVisible[msg.timestamp] && (
               <div className="message-menu">
-                <button onClick={() => openEditModal(msg)}>Editar</button>
+                {/* Exibe o botão de editar apenas para o usuário que enviou a mensagem */}
+                {msg.sender === username && (
+                  <button onClick={() => openEditModal(msg)}>Editar</button>
+                )}
                 <button onClick={() => onDeleteMessage(msg.timestamp)}>Excluir</button>
               </div>
             )}
@@ -123,7 +123,7 @@ const MessageList: React.FC<Props> = ({ messages, username, onDeleteMessage, onE
           <div className="edit-modal">
             <h3>Editar mensagem</h3>
             <textarea
-            className='text-area-edit'
+              className="text-area-edit"
               value={editModal.message.content}
               onChange={(e) =>
                 setEditModal((prev) => ({
@@ -134,10 +134,10 @@ const MessageList: React.FC<Props> = ({ messages, username, onDeleteMessage, onE
             />
             <div className="modal-buttons">
               <button onClick={handleSaveEdit}>
-                <Icon path={mdiContentSave} size={1.2} /> 
+                <Icon path={mdiContentSave} size={1.2} />
               </button>
               <button onClick={closeEditModal}>
-                <Icon path={mdiCancel} size={1.2} /> 
+                <Icon path={mdiCancel} size={1.2} />
               </button>
             </div>
           </div>
