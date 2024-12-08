@@ -43,6 +43,24 @@ const ChatContainer: React.FC = () => {
     setUsername(user);
   };
 
+  // Função para editar uma mensagem
+  const handleEditMessage = (timestamp: number, newContent: string) => {
+    setMessages((prevMessages) =>
+      prevMessages.map((msg) =>
+        msg.timestamp === timestamp ? { ...msg, content: newContent } : msg
+      )
+    );
+    // Envie a mensagem editada para o servidor
+    socket.emit('edit message', { timestamp, newContent });
+  };
+
+  // Função para deletar a mensagem
+  const handleDeleteMessage = (timestamp: number) => {
+    setMessages((prevMessages) => prevMessages.filter((msg) => msg.timestamp !== timestamp));
+    // Envie a remoção para o servidor se necessário
+    socket.emit('delete message', timestamp);
+  };
+
   if (!username) {
     return <Login onLogin={handleLogin} />;
   }
@@ -50,7 +68,12 @@ const ChatContainer: React.FC = () => {
   return (
     <div className="chat-container">
       <OnlineUsers onlineUsers={onlineUsers} />
-      <MessageList messages={messages} username={username} />
+      <MessageList
+        messages={messages}
+        username={username}
+        onDeleteMessage={handleDeleteMessage}
+        onEditMessage={handleEditMessage}
+      />
       <ChatInput onSendMessage={handleSendMessage} />
     </div>
   );

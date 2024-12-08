@@ -7,6 +7,7 @@ interface MessageProps {
   sender: string;
   timestamp: number;
   username: string;
+  onDeleteMessage: (timestamp: number) => void; // Função de deleção
 }
 
 const Message: React.FC<MessageProps> = ({ content, sender, timestamp, username }) => {
@@ -16,7 +17,7 @@ const Message: React.FC<MessageProps> = ({ content, sender, timestamp, username 
   const formattedTime = new Date(timestamp).toLocaleTimeString();
 
   return (
-    <li className={`chat-message ${isSelf ? 'self' : 'other'}`}>
+    <li className={`chat-message-msg ${isSelf ? 'self' : 'other'}`}>
       <strong>{sender}: </strong> {content}
       <span className="message-time">{formattedTime}</span>
     </li>

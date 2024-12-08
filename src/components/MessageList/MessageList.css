@@ -1,28 +1,193 @@
 .chat-messages {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding: 20px 10px;
-    margin: 0;
-    overflow-y: auto;
-    flex-grow: 1;
+  list-style: none; /* Remove os marcadores de lista */
+  padding: 10px;
+  margin: 0;
+  width: 100%; /* Ocupa a largura total do contêiner */
+  overflow-y: auto; /* Habilita rolagem vertical para mensagens */
+  flex-grow: 1; /* Permite que a lista cresça dentro do contêiner */
+  max-height: 200px; /* Limita a altura de mensagens muito longas */
+  scrollbar-color: #555 transparent; /* Para o Firefox */
+}
+
+/* Barra de rolagem para o WebKit (Chrome, Safari) */
+.chat-messages::-webkit-scrollbar {
+  width: 8px;
+}
+
+.chat-messages::-webkit-scrollbar-thumb {
+  background-color: #555;
+  border-radius: 10px;
+}
+
+.chat-messages::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.chat-messages:hover::-webkit-scrollbar-thumb {
+  background-color: #888;
+}
+
+.chat-message {
+  display: flex; /* Garante alinhamento interno */
+  flex-direction: column; /* Alinha o conteúdo verticalmente */
+  word-wrap: break-word; /* Quebra palavras longas */
+  word-break: break-word; /* Garante que palavras longas sejam quebradas */
+  max-width: 100%; /* Evita que o texto ultrapasse os limites */
+  background-color: #333; /* Fundo da mensagem */
+  color: white; /* Texto visível */
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  position: relative; /* Permite que os elementos dentro dela sejam posicionados de forma absoluta */
+  padding: 10px;
+  margin: 5px 0;
  
-  }
+  border-radius: 5px;
   
-  .message-time {
-    font-size: 0.8rem;
-    color: #777;
-    margin-left: 10px;
-    border-radius: 50px;
-  }
+}
+
+
+.chat-message strong {
+  display: block;
+  font-weight: bold; /* Deixa o nome em negrito */
+  color: #4caf50; /* Cor do nome do usuário */
   
-  .chat-message.self {
-    background-color: #284128;
-    text-align: left;
-  }
   
-  .chat-message.other {
-    background-color: #ac4242;
-    text-align: left;
-  }
+}
+
+
+.message-time{
+
+  font-size: 0.6rem;
+  color: #94b8b2; /* Cor do horário */
+}
+
+/* Estilo do botão de menu */
+.menu-button {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  color: #888;
+}
+
+.menu-button:hover {
+  color: #333;
+}
+
+/* Estilo do menu de opções */
+.message-menu {
+  position: absolute;
+  top: 30px;
+  right: 5px;
+  background-color: #1f1f1f;
+  border: 1px solid #201f1f;
+  border-radius: 5px;
+  padding: 5px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.message-menu button {
+  background: none;
+  border: none;
+  padding: 5px 10px;
+  text-align: left;
+  cursor: pointer;
+  width: 100%;
+  font-size: 1rem;
+}
+
+.message-menu button:hover {
+  background-color: #f0f0f0;
+}
+
+.save-btn{
+  background-color: transparent;
+  color:#4caf50;
+  border: none;
+  
+}
+
+.save-btn:hover{
+  background-color: transparent;
+  color:#4caf50;
+ 
+  
+}
+
+.cancel-btn{
+  display: flex;
+  background-color: transparent;
+  color:#d82c2c;
+  border: none;
+}
+
+/* Overlay para escurecer o fundo */
+.edit-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+/* Estilo da modal */
+.edit-modal {
+  background: #333;
+  padding: 30px;
+  border-radius: 10px;
+  width: 400px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  
+}
+
+.edit-modal h3 {
+  margin-bottom: 10px;
+}
+
+.edit-modal textarea {
+  width: 100%;
+  height: 100px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  resize: none;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.modal-buttons button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.modal-buttons button:first-child {
+  background-color: transparent;
+  color: rgb(15, 182, 15);
+}
+
+.modal-buttons button:last-child {
+  background-color: transparent;
+  color: red;
+}
+
+.text-area-edit{
+
+width: 1000;
+}

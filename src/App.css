@@ -8,6 +8,7 @@
   padding: 0;
   text-align: center;
   background-color: #2b2b2b; /* Cor de fundo escura */
+  
 }
 
 /* Estilo do body com fundo escuro e texto claro */
@@ -22,6 +23,8 @@ body {
   justify-content: center;
   align-items: center; /* Certificando-se de que tudo esteja centralizado */
   text-align: center; /* Alinha o texto centralizado no body */
+
+  
 }
 
 
