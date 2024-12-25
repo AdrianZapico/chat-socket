@@ -3,7 +3,7 @@ import Icon from '@mdi/react';
 import { mdiContentSave, mdiCancel } from '@mdi/js';
 import './MessageList.css';
 
-interface Message {
+type Message = {
   sender: string;
   content: string;
   timestamp: number;
@@ -43,6 +43,8 @@ const MessageList: React.FC<Props> = ({ messages, username, onDeleteMessage, onE
     }
   }, [username, userColors]);
 
+  
+
   // Função para formatar a data/hora
   const formatDate = (timestamp: number) => {
     const date = new Date(timestamp);
@@ -79,6 +81,12 @@ const MessageList: React.FC<Props> = ({ messages, username, onDeleteMessage, onE
     }
   };
 
+  useEffect(() => {
+    if (messageEndRef.current) {
+      messageEndRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [messages]);
+
   // Função para fechar o modal de edição
   const closeEditModal = () => {
     setEditModal({ visible: false, message: null });
@@ -94,6 +102,7 @@ const MessageList: React.FC<Props> = ({ messages, username, onDeleteMessage, onE
                 {msg.sender}:
               </strong>
               <span>{msg.content}</span>
+              
             </div>
             <span className="message-time">{formatDate(msg.timestamp)}h</span>
 
