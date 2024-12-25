@@ -3,6 +3,9 @@ import Icon from '@mdi/react';
 import { mdiContentSave, mdiCancel } from '@mdi/js';
 import './MessageList.css';
 
+
+//DISGRAAAAAÇA
+
 type Message = {
   sender: string;
   content: string;
